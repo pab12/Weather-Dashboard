@@ -1,0 +1,17 @@
+/* header style */
+h1 {
+    text-align:center;
+    color: white;
+    background-image: linear-gradient(90deg, #0d6efd,  #112342);
+    padding:10px;
+}
+
+.left-column {
+    padding: 0 0 0 25px;
+}
+/* city input */
+#city-name, .search-btn {
+    width:100%;
+    margin: 0 0 10px;
+}
+
