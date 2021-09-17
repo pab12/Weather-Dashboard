@@ -10,7 +10,7 @@ h1 {
     padding: 0 0 0 25px;
 }
 /* city input */
-#city-name, .search-btn {
+#city-name, .search-btn, .past-search {
     width:100%;
     margin: 0 0 10px;
 }
