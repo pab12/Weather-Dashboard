@@ -4,6 +4,7 @@ var cityName = document.querySelector("#city-name").value;
 var searchBtn = document.querySelector(".search-btn");
 var history = document.querySelector(".history");
 var msgError = document.querySelector("#msg");
+var dateEl = document.querySelector("#date");
 //https:api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=8de20741c731f03421655e07f94c2186
 var btnH = document.createElement("button");
 
@@ -52,7 +53,7 @@ searchBtn.addEventListener("click", function () {
       var latitude = document.querySelector("#lat");
       var longitude = document.querySelector("#lon");
       var Name = document.querySelector("#name");
-      var forecastIcon = document.querySelector("#city-forcast");
+      var forecastIcon = document.querySelector("#forecast-icon");
       var Temp = document.querySelector("#temp");
       var wind = document.querySelector("#wind");
       var Humidity = document.querySelector("#humidity");
@@ -83,11 +84,13 @@ searchBtn.addEventListener("click", function () {
       // longitude.appendChild(para);
 
       //Name.innerHTML = response.name + " " + iconUrl;
+      forecastIcon.innerHTML="";
       Name.innerHTML = response.name;
       
       var img = document.createElement("img");
+      
       img.setAttribute("src", iconUrl);
-      Name.appendChild(img);
+      forecastIcon.appendChild(img);
 
       Temp.innerHTML = response.main.temp;
 
@@ -132,4 +135,23 @@ function uvIndex() {
     uvValue.classList.add("severe");
   }
   })
+};
+
+function forecast () {
+  var cityName = document.querySelector("#name").innerHTML;
+  var forecastLink = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=8de20741c731f03421655e07f94c2186`
+
+fetch(forecastLink)
+.then(function(response){
+  return response.json();
+})
+.then(function(response){
+
+  var day = response.list[2].dt_txt;
+  var date = new Date(response.list[10].dt_txt).toLocaleDateString();
+  dateEl.innerHTML =" " + date;
+console.log(day);
+console.log(date);
+  console.log(response);
+})
 };
