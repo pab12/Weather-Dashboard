@@ -30,14 +30,15 @@
         </div>
         <!-- weather forecast -->
         <div class="col-10">
-            <section id="current-condition">
-                <div id="lat" ></div>
+            <section id="current-condition" class="hide">
+                <div id="lat" class="hide"></div>
                 <div id="lon" class="hide"></div>
-                <h2 id="name"></h2>
-                <p id="temp"></p>
-                <p id="wind"></p>
-                <p id="humidity"></p>
-                <p id="UV-index"></p>
+                <div id="city-forcast" class="wrap"><h2 id="name"></h2></div>
+                <div class="wrap white-space"><p>Temp: </p><p id="temp"></p><p>°F</p></div>
+                <div class="wrap white-space"><p>Wind: </p><p id="wind"></p><p> MPH</p></div>
+                <div class="wrap white-space"><p>Humidity: </p><p id="humidity"><p> %</p></p></div>
+                <div class="wrap white-space"><p>UV index: </p><p id="UV-index"></p></div>
+                
             </section>
         
         </div>

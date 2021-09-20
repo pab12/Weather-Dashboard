@@ -1,14 +1,18 @@
 var apiKey = "8de20741c731f03421655e07f94c2186";
 var urlLink = "api.openweathermap.org/data/2.5/weather?q=";
-
+var cityName = document.querySelector("#city-name").value;
 var searchBtn = document.querySelector(".search-btn");
 var history = document.querySelector(".history");
 var msgError = document.querySelector("#msg");
 //https:api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=8de20741c731f03421655e07f94c2186
- var btnH = document.createElement("button");
+var btnH = document.createElement("button");
 
 var latitude = document.querySelector("#lat");
 var longitude = document.querySelector("#lon");
+
+var uvValue = document.querySelector("#UV-index");
+
+
 // search for city when searchBtn is clicked
 searchBtn.addEventListener("click", function (event) {
   event.preventDefault();
@@ -46,52 +50,86 @@ searchBtn.addEventListener("click", function () {
     .then(function (response) {
       var weatherCondition = document.querySelector("#current-condition");
       var latitude = document.querySelector("#lat");
+      var longitude = document.querySelector("#lon");
       var Name = document.querySelector("#name");
+      var forecastIcon = document.querySelector("#city-forcast");
       var Temp = document.querySelector("#temp");
       var wind = document.querySelector("#wind");
       var Humidity = document.querySelector("#humidity");
       var icon = response.weather[0].icon;
-      var iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png";
+
+      weatherCondition.removeAttribute("class", "hide");
+      var iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+      console.log(iconUrl);
       // Name.setAttribute("src",iconUrl);
-     // var tempt = document.createElement("p");
-      var lat = document.createElement("p");
+      // var tempt = document.createElement("p");
+      //var para = document.createElement("p");
       //tempt.innerHTML = "tempt: " + response.main.temp;
-      lat.innerHTML = response.coord.lat;
-      Name.innerHTML = response.name + " " + iconUrl;
+      // gets the latitude coordinate and empty out the div
+      var lat = response.coord.lat;
+      var lon = response.coord.lon;
+      //para.innerHTML="";
+      latitude.innerHTML = lat;
+      // para.innerHTML = lat;
+      console.log(lat);
+      longitude.innerHTML = lon;
+      // latitude.innerHTML="";
+      // latitude.appendChild(para);
 
+      // var lon = response.coord.lon;
+      // para.innerHTML = "";
+      // para.innerHTML = lon;
+      // longitude.innerHTML = "";
+      // longitude.appendChild(para);
+
+      //Name.innerHTML = response.name + " " + iconUrl;
+      Name.innerHTML = response.name;
       
-      Temp.innerHTML = "temp: " + response.main.temp;
+      var img = document.createElement("img");
+      img.setAttribute("src", iconUrl);
+      Name.appendChild(img);
 
-      wind.innerHTML = "wind: " + response.wind.speed;
+      Temp.innerHTML = response.main.temp;
 
-      Humidity.innerHTML ="humidity: " + response.main.humidity +" %";
-      // weatherCondition.appendChild(tempt);
-      
-      latitude.appendChild(lat);
+      wind.innerHTML = response.wind.speed;
+
+      Humidity.innerHTML = response.main.humidity;
       // response.weather[0].id;
-
-      // if (response.ok) {
-      //   response.json().then(function (data) {
-      //     var lon = data.lon;
-      //     var lat = data.lat;
-
-      //     console.log(lat);
-      //     console.log(lon);
-      //     // var latitude = document.querySelector("#lat");
-      //     // var longitude = document.querySelector("#lon");
-      //     latitude.innerHTML = lat;
-      //     longitude.innerHTML = lon;
-      //     console.log(longitude);
-      //     console.log(latitude);
-      //     console.log(latitude.innerHTML);
-      //   });
-      // }
       console.log(response);
-      console.log(response.weather[0].id)
-      console.log(response.coord.lat)
+      console.log(response.weather[0].id);
+      console.log(response.coord.lat);
+      uvIndex();
+      forecast();
     });
 });
 
-
-
-
+// UV index
+function uvIndex() {
+  var locationLink = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat.textContent}&lon=${lon.textContent}&appid=${apiKey}`;
+  console.log(locationLink);
+  fetch(locationLink)
+  .then(function(data){
+    return data.json();
+  })
+  .then(function(data){
+    var UV = data.current.uvi;
+    console.log(UV);
+   uvValue.innerHTML =`${UV}`;
+    //favorable conditions of UV index
+   if(UV <= 2.99) {
+     uvValue.classList.add("favorable");
+     uvValue.classList.remove("moderate");
+     uvValue.classList.remove("severe");
+     //moderate conditions of UV index
+   } else if (UV >= 3 && UV <= 5){
+    uvValue.classList.remove("favorable");
+    uvValue.classList.remove("severe");
+    uvValue.classList.add("moderate");
+    //severe conditions of UV index
+  } else {
+    uvValue.classList.remove("favorable");
+    uvValue.classList.remove("moderate");
+    uvValue.classList.add("severe");
+  }
+  })
+};

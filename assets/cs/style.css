@@ -18,3 +18,33 @@ h1 {
 .hide {
     display:none;
 }
+#current-condition {
+    border: solid grey;
+    padding: 10px;
+    margin-right: 2%;
+}
+
+.wrap {
+    display:flex;
+    flex-wrap: wrap;
+}
+
+p#UV-index {
+    width: 50px;
+    text-align: center;
+    color: white;
+}
+.favorable {
+    background-color: green;
+}
+
+.moderate {
+    background-color: yellow;
+}
+.severe {
+    background-color: red;
+}
+
+.white-space {
+    white-space: pre-wrap;
+}
