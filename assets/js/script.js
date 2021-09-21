@@ -97,10 +97,7 @@ searchBtn.addEventListener("click", function () {
       wind.innerHTML = response.wind.speed;
 
       Humidity.innerHTML = response.main.humidity;
-      // response.weather[0].id;
-      console.log(response);
-      console.log(response.weather[0].id);
-      console.log(response.coord.lat);
+
       uvIndex();
       forecast();
     });
@@ -139,7 +136,8 @@ function uvIndex() {
 
 function forecast () {
   var cityName = document.querySelector("#name").innerHTML;
-  var forecastLink = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=8de20741c731f03421655e07f94c2186`
+  var dayOne = document.querySelector("#date-one");
+  var forecastLink = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=imperial&appid=8de20741c731f03421655e07f94c2186`
 
 fetch(forecastLink)
 .then(function(response){
@@ -147,11 +145,147 @@ fetch(forecastLink)
 })
 .then(function(response){
 
-  var day = response.list[2].dt_txt;
-  var date = new Date(response.list[10].dt_txt).toLocaleDateString();
+  var urlLink = `http://openweathermap.org/img/wn/${iconEl}@2x.png`;
+  // date for current day
+  var forecast = document.querySelector("#future-condition");
+  forecast.classList.remove("hide");
+  forecast.classList.add("wrap");
+  var day = response.list[0].dt_txt;
+  var date = new Date(response.list[0].dt_txt).toLocaleDateString();
   dateEl.innerHTML =" " + date;
 console.log(day);
 console.log(date);
   console.log(response);
+  
+  // dates for the 5 day forecast 
+  // The date for the first day
+  var dateOne = new Date(response.list[8].dt_txt).toLocaleDateString();
+  dayOne.innerHTML = dateOne;
+  // setting the img icon
+  var iconOne = document.querySelector("#img-one");
+  var iconEl = response.list[8].weather[0].icon;
+  var urlLink = `http://openweathermap.org/img/wn/${iconEl}@2x.png`;
+  var imgEl = document.createElement("img");
+  imgEl.setAttribute("src",urlLink);
+  iconOne.innerHTML ="";
+  iconOne.appendChild(imgEl);
+
+  // getting the values for the specific day
+
+  // get the temp
+  var tempOne = document.querySelector("#temp-1");
+  var temp = response.list[8].main.temp;
+  tempOne.innerHTML = temp;
+
+  // get the wind speed
+  var windOne = document.querySelector("#wind-1");
+  var wind = response.list[8].wind.speed;
+  windOne.innerHTML = wind;
+
+  // get the humidity
+  var humidityOne = document.querySelector("#humidity-1");
+  var humidity = response.list[8].main.humidity;
+  humidityOne.innerHTML = humidity;
+
+
+  // day 2
+  var dayTwo = document.querySelector("#date-two")
+  var dateTwo =new Date(response.list[16].dt_txt).toLocaleDateString();
+  dayTwo.innerHTML = dateTwo;
+
+  var iconTwo = document.querySelector("#img-two");
+  var icon2El = response.list[16].weather[0].icon;
+  var urlLink2 = `http://openweathermap.org/img/wn/${icon2El}@2x.png`;
+  var img2El = document.createElement("img");
+  img2El.setAttribute("src",urlLink2);
+  iconTwo.innerHTML ="";
+  iconTwo.appendChild(img2El);
+  // temp 2
+  var tempTwo = document.querySelector("#temp-2");
+  var temp2 = response.list[16].main.temp;
+  tempTwo.innerHTML = temp2;
+  // wind 2
+  var windTwo = document.querySelector("#wind-2");
+  var wind2 = response.list[16].wind.speed;
+  windTwo.innerHTML = wind2;
+  // humidity 2
+  var humidityTwo = document.querySelector("#humidity-2");
+  var humidity2 = response.list[16].main.humidity;
+  humidityTwo.innerHTML = humidity2;
+
+  // day 3
+var dayThree = document.querySelector("#date-three")
+var dateThree =new Date(response.list[24].dt_txt).toLocaleDateString();
+dayThree.innerHTML = dateThree;
+
+var iconThree = document.querySelector("#img-three");
+var icon3El = response.list[24].weather[0].icon;
+var urlLink3 = `http://openweathermap.org/img/wn/${icon3El}@2x.png`;
+var img3El = document.createElement("img");
+img3El.setAttribute("src",urlLink3);
+iconThree.innerHTML ="";
+iconThree.appendChild(img3El);
+  // temp 3
+var tempThree = document.querySelector("#temp-3");
+var temp3 = response.list[24].main.temp;
+tempThree.innerHTML = temp3;
+  // wind 3
+var windThree = document.querySelector("#wind-3");
+var wind3 = response.list[24].wind.speed;
+windThree.innerHTML = wind3;
+  // humidity 3
+var humidityThree = document.querySelector("#humidity-3");
+var humidity3 = response.list[24].main.humidity;
+humidityThree.innerHTML = humidity3;
+
+  // day 4
+  var dayFour = document.querySelector("#date-four")
+  var dateFour =new Date(response.list[32].dt_txt).toLocaleDateString();
+  dayFour.innerHTML = dateFour;
+  
+  var iconFour = document.querySelector("#img-four");
+  var icon4El = response.list[32].weather[0].icon;
+  var urlLink4 = `http://openweathermap.org/img/wn/${icon4El}@2x.png`;
+  var img4El = document.createElement("img");
+  img4El.setAttribute("src",urlLink4);
+  iconFour.innerHTML ="";
+  iconFour.appendChild(img4El);
+    // temp 4
+  var tempFour = document.querySelector("#temp-4");
+  var temp4 = response.list[32].main.temp;
+  tempFour.innerHTML = temp4;
+    // wind 4
+  var windFour = document.querySelector("#wind-4");
+  var wind4 = response.list[32].wind.speed;
+  windFour.innerHTML = wind4;
+    // humidity 4
+  var humidityFour = document.querySelector("#humidity-4");
+  var humidity4 = response.list[32].main.humidity;
+  humidityFour.innerHTML = humidity4;
+
+  // day 5
+  var dayFive = document.querySelector("#date-five")
+  var dateFive =new Date(response.list[39].dt_txt).toLocaleDateString();
+  dayFive.innerHTML = dateFive;
+  
+  var iconFive = document.querySelector("#img-five");
+  var icon5El = response.list[39].weather[0].icon;
+  var urlLink5 = `http://openweathermap.org/img/wn/${icon5El}@2x.png`;
+  var img5El = document.createElement("img");
+  img5El.setAttribute("src",urlLink5);
+  iconFive.innerHTML ="";
+  iconFive.appendChild(img5El);
+    // temp 5
+  var tempFive = document.querySelector("#temp-5");
+  var temp5 = response.list[39].main.temp;
+  tempFive.innerHTML = temp5;
+    // wind 5
+  var windFive = document.querySelector("#wind-5");
+  var wind5 = response.list[39].wind.speed;
+  windFive.innerHTML = wind5;
+    // humidity 5
+  var humidityFive = document.querySelector("#humidity-5");
+  var humidity5 = response.list[39].main.humidity;
+  humidityFive.innerHTML = humidity5;
 })
 };

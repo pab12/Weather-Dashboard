@@ -27,6 +27,7 @@ h1 {
 .wrap {
     display:flex;
     flex-wrap: wrap;
+    
 }
 
 p#UV-index {
@@ -47,4 +48,12 @@ p#UV-index {
 
 .white-space {
     white-space: pre-wrap;
+}
+.card {
+    background: #33475a;;
+    color: white;
+    margin: 19px 32px 0px 0px;
+}
+#future-condition {
+    justify-content: space-between;
 }
